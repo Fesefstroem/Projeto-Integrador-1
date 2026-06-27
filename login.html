@@ -2,12 +2,46 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Primeiro Site</title>
+    <title>MedSync</title>
+    <link rel="stylesheet" href="login2.css">
+    <link rel="icon" href="med.png">
 </head>
+
 <body>
-    <h1>Olá, Mundo!</h1>
-    <p>Este é o meu primeiro parágrafo estruturado usando HTML básico.</p>
-    <a href="https://developer.mozilla.org">Clique aqui para aprender mais na documentação oficial</a>
+    <section>
+    <div class="login-box">
+        <form action="">
+            <h2>Bem-Vindo(a)!</h2>
+            <div class="input-box">
+                <span class="icon"><ion-icon name="log-in-outline"></ion-icon></span>
+                <input type="email" required>
+                <label>Email ou usuário</label>
+            </div>
+            <div class="input-box">
+                <span class="icon"><ion-icon name="eye-outline"></ion-icon></span>
+                <input type="password" required>
+                <label>Senha</label>
+            </div>
+            <div class="remember-forgot">
+        <label><input type="checkbox"> Manter conectado </label>
+        <a href="#">Esqueci minha senha?</a>
+    </div>
+    <button type="submit">Acessar</button>
+    <div class="register-link">
+        <p>Não tem uma conta? <a href="#">Inscreva-se</a></p>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+
+
+    <script type="module" src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.js"></script>
+
+
 </body>
 </html>
