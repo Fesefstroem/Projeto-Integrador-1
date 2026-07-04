@@ -111,23 +111,6 @@ button {
     font-weight: 500;
 }
 
-.register-link {
-    font-size: 1.0em;
-    color: #000000;
-    text-align: center;
-    margin: 25px 0 10px;
-}
-
-.register-link p a {
-    color: #191919;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.register-link p a:hover{
-    text-decoration: underline;
-}
-
 @media (max-width: 360px) {
     .login-box{
         width: 100%;

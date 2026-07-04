@@ -1,0 +1,70 @@
+* {
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background: url('branco.avif') no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+h2 {
+    font-size: 2em;
+    color: #bf0000;
+    text-align: center;
+}
+
+.painel-botoes {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    background-color: white;
+    border-radius: 12px;
+    background-image: repeating-linear-gradient
+}
+
+.btn {
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.btn-cadmed {
+  background-color: #bf0000;
+  color: white;
+}
+
+.btn-cadfor {
+  background-color: #bf0000;
+  color: white;
+}
+
+.btn-regsaida {
+  background-color: #bf0000;
+  color: white;
+}
+
+.btn-regentrada {
+  background-color: #bf0000;
+  color: white;
+}
