@@ -1,0 +1,128 @@
+/* Container principal do formulário */
+.container-cadastro {
+    max-width: 700px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eaeaea;
+    font-family: sans-serif;
+}
+
+/* Cabeçalho do formulário */
+.cabecalho-form {
+    margin-bottom: 25px;
+    border-bottom: 2px solid #f3f4f6;
+    padding-bottom: 15px;
+}
+
+.cabecalho-form h2 {
+    color: #cc0000;
+    margin: 0 0 5px 0;
+}
+
+.cabecalho-form p {
+    color: #666;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Estrutura dos inputs */
+.form-usuario {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.linha-dupla {
+    display: flex;
+    gap: 20px;
+}
+
+.linha-dupla .grupo-input {
+    flex: 1;
+}
+
+/* 1. Ajuste do espaçamento do grupo e das Labels */
+.grupo-input {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.grupo-input label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px; /* Cria aquele espaço vital entre a palavra e a caixinha */
+}
+
+/* 2. O segredo das caixinhas (Inputs e Selects) gordinhas */
+.form-usuario input,
+.form-usuario select {
+    padding: 12px 15px; /* Aumenta a altura da caixa e o espaço interno */
+    border: 1px solid #d1d5db; /* Borda cinza suave */
+    border-radius: 6px; /* Cantos arredondados como na Foto 2 */
+    font-size: 15px;
+    color: #444; /* Cor do texto digitado */
+    outline: none;
+    width: 100%;
+    box-sizing: border-box; /* Impede que o padding quebre o tamanho da caixa */
+    background-color: #ffffff;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* 3. Efeito ao clicar na caixinha (Fica com a bordinha em destaque) */
+.form-usuario input:focus,
+.form-usuario select:focus {
+    border-color: #00aaff; /* Azulzinho que aparece na Foto 2 */
+    box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.15); /* Sombra suave ao redor */
+}
+
+/* 4. Estilo para o campo ID que está bloqueado (Fundo cinza da Foto 2) */
+.form-usuario input:disabled {
+    background-color: #f3f4f6; /* Fundo cinza bem claro */
+    color: #888;
+    cursor: not-allowed;
+    border-color: #e5e7eb;
+}
+
+/* Botões do formulário */
+.acoes-form {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.btn-cancelar {
+    padding: 10px 20px;
+    background-color: #f3f4f6;
+    color: #555;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-cancelar:hover {
+    background-color: #e2e2e2;
+}
+
+.btn-salvar {
+    padding: 10px 24px;
+    background-color: #cc0000;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-salvar:hover {
+    background-color: #a30000;
+}
