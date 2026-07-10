@@ -1,0 +1,295 @@
+# CLASSES
+import uuid
+
+class Usuario:
+    def __init__(self, nome, cpf, email, telefone, senha, perfil):
+        self.nome = nome
+        self.cpf = cpf
+        self.email = email
+        self.telefone = telefone
+        self.senha = senha
+        self.id_usuario = str(uuid.uuid4())
+        self.perfil = perfil
+
+    def exibir_dados(self):
+        print(f"Nome: {self.nome}")
+        print(f"CPF: {self.cpf}")
+        print(f"E-mail: {self.email}")
+        print(f"Telefone: {self.telefone}")
+        print(f"Senha: {self.senha}")
+        print(f"Id de usuario: {self.id_usuario}")
+        print(f"Perfil: {self.perfil}")
+
+nome = input("Nome: ")
+cpf = int(input("CPF: "))
+email = input("E-mail: ")
+telefone = int(input("Telefone: "))
+senha = input("Senha: ")
+perfil = input("Perfil: ")
+
+usuario = Usuario(nome, cpf, email, telefone, senha, perfil)
+print("\n--- Dados do Usuário Criado ---")
+usuario.exibir_dados()
+
+class Laboratorio:
+    def __init__(self, nome_laboratorio, endereco, cpnj, email, telefone, id_laboratorio):
+        self.nome_laboratorio = nome_laboratorio
+        self.endereco = endereco
+        self.cnpj = cpnj
+        self.email = email
+        self.telefone = telefone
+        self.id_laboratorio = id_laboratorio
+    
+    def exibir_dados(self):
+        print(f"Nome do Laboratorio: {self.nome_laboratorio}")
+        print(f"Endereço: {self.endereco}")
+        print(f"CNPJ: {self.cnpj}")
+        print(f"E-mail: {self.email}")
+        print(f"Telefone: {self.telefone}")
+        print(f"ID do laboratorio: {self.id_laboratorio}")
+
+nome_laboratorio = input("Nome do Laboratorio: ")
+endereco = input("Endereço: ")
+cnpj = int(input("CNPJ: "))
+email = input("E-mail: ")
+telefone = int(input("Telefone: "))
+id_laboratorio = int(input("ID do laboratorio: "))
+
+laboratorio = Laboratorio(nome_laboratorio, endereco, cnpj, email, telefone, id_laboratorio)
+laboratorio.exibir_dados()
+
+class Medicamento:
+    def __init__(self, nome_medicamento, classificacao, codigo, via_uso, apresentacao, principio_ativo,nome_laboratorio, id_laboratorio, id_usuario):
+        self.nome_medicamento = nome_medicamento
+        self.classificacao = classificacao
+        self.codigo = codigo
+        self.via_uso = via_uso
+        self.apresentacao = apresentacao
+        self.principio_ativo = principio_ativo
+        self.nome_laboratorio = nome_laboratorio
+        self.id_laboratorio = id_laboratorio
+        self.id_usuario = id_usuario
+    
+    def exibir_dados(self):
+        print(f"Nome do medicamento: {self.nome_medicamento}")
+        print(f"Classificação: {self.classificacao}")
+        print(f"Código: {self.codigo}")
+        print(f"Via de uso: {self.via_uso}")
+        print(f"Apresentação: {self.apresentacao}")
+        print(f"Principio ativo: {self.principio_ativo}")
+        print(f"Nome do Laboratorio: {self.nome_laboratorio}")
+        print(f"ID do laboratorio: {self.id_laboratorio}")
+        print(f"ID de usuario: {self.id_usuario}")
+
+nome_medicamento = input("Nome do medicamento: ")
+classificacao = input("Classificação: ")
+codigo = int(input("Código: "))
+via_uso = input("Via de uso: ")
+apresentacao = int(input("Apresentação: "))
+principio_ativo = input("Principio ativo: ")
+nome_laboratorio = input("Nome do Laboratorio: ")
+id_laboratorio = int(input("ID do laboratorio: "))
+id_usuario = int(input("ID de usuario: "))
+
+
+medicamento = Medicamento(nome_medicamento, classificacao, codigo, via_uso, apresentacao, principio_ativo, nome_laboratorio, id_laboratorio, id_usuario)
+medicamento.exibir_dados()
+
+class Aquisicao:
+    def __init__(self, data_compra, nome_medicamento, id_medicamento, nome_laboratorio, id_laboratorio, quantidade, lote, data_validade, vlr_unitario, vlr_total, nota_fiscal, id_aquisicao, id_usuario):
+        self.data_compra = data_compra
+        self.nome_medicamento = nome_medicamento
+        self.id_medicamento = id_medicamento
+        self.nome_laboratorio = nome_laboratorio
+        self.id_laboratorio = id_laboratorio
+        self.quantidade = quantidade
+        self.lote = lote
+        self.data_validade = data_validade
+        self.vlr_unitario = vlr_unitario
+        self.vlr_total = vlr_total
+        self.nota_fiscal = nota_fiscal
+        self.id_aquisicao = id_aquisicao
+        self.id_usuario =id_usuario
+    
+    def exibir_dados(self):
+        print(f"Data de compra: {self.data_compra}")
+        print(f"Nome do medicamento: {self.nome_medicamento}")
+        print(f"ID do medicamento: {self.id_medicamento}")
+        print(f"Nome do laboratorio: {self.nome_laboratorio}")
+        print(f"ID do laboratorio: {self.id_laboratorio}")
+        print(f"Quantidade: {self.quantidade}")
+        print(f"Lote: {self.lote}")
+        print(f)
+
+laboratorio = input("Laboratorio: ")
+endereco = input("Endereço: ")
+cnpj = int(input("CNPJ: "))
+email = input("E-mail: ")
+telefone = int(input("Telefone: "))
+id_laboratorio = int(input("ID do laboratorio: "))
+
+laboratorio = Laboratorio(laboratorio, endereco, cnpj, email, telefone, id_laboratorio)
+laboratorio.exibir_dados()
+
+class Distribuicao:
+    def __init__(self, id_distribuicao, data_distribuicao, nome_medicamento, id_medicamento, lote, quantidade, data_validade, vlr_saida, id_fornecedor):
+   
+        self.id_distribuicao = id_distribuicao
+        self.data_distribuicao = data_distribuicao
+        self. nome_medicamento = nome_medicamento
+        self.id_medicamento = id_medicamento
+        self.lote = lote
+        self.quantidade = quantidade
+        self.data_validade = data_validade
+        self.vlr_saida = vlr_saida
+        self.id_fornecedor = id_fornecedor
+
+    def exibir_dados(self):
+        print(f'ID de distribuição: {self.id_distribuicao}')
+        print(f'Data de distribuição: {self.data_distribuicao}')
+        print(f'Nome do medicamento: {self.nome_medicamento}')
+        print(f'ID do medicamento: {self.id_medicamento}')
+        print(f'Lote: {self.lote}')
+        print(f'Quantidade: {self.quantidade}')
+        print(f'Data de validade: {self.data_validade}')
+        print(f'Valor de saída: {self.vlr_saida}')
+        print(f'ID do fornecedor da distribuiçõa: {self.id_fornecedor}')
+
+id_distribuicao = int(input("ID de distribuicao: "))
+data_distribuicao = int(input("Data de distribuição:"))
+nome_medicamento = input("Nome do medicamento:")
+id_medicamento = int(input("ID do medicamento:"))
+lote = int(input("Lote:"))
+quantidade = int(input("Qauntidade:"))
+data_validade = int(input("Data de validade:"))
+vlr_saida = int(input("Valor de saída:"))
+id_fornecedor = int(input("ID do fornecedor da distribuiçõa"))
+
+distribuicao = Distribuicao(id_distribuicao, data_distribuicao, nome_medicamento, id_medicamento, lote, quantidade, data_validade, vlr_saida, id_fornecedor)
+distribuicao.exibir_dados()
+
+class Movimentacao:
+    def __init__(self, id_movimentacao, tipo_movimentacao, data_movimentacao, quantidade, id_medicamento,id_aquisicao, id_distribuicao, id_usuario,id_fornecedor):
+        self.id_movimentacao = id_movimentacao
+        self.tipo_movimentacao = tipo_movimentacao
+        self.data_movimentacao = data_movimentacao
+        self.quantidade = quantidade
+        self.id_medicamento = id_medicamento
+        self.id_aquisicao = id_aquisicao
+        self.id_distribuicao = id_distribuicao
+        self.id_usuario = id_usuario
+        self.id_fornecedor = id_fornecedor
+
+    def exibir_dados(self):
+        print(f'ID de movimentação: {self.id_movimentacao}')
+        print(f'Tipo de movimentação: {self.tipo_movimentacao}')
+        print(f'Data da movimmentação: {self.data_movimentacao}')
+        print(f'Quantidade: {self.quantidade}')
+        print(f'ID do medicamento: {self.id_medicamento}')
+        print(f'ID de aquisição: {self.id_aquisicao}')
+        print(f'ID de distribuição: {self.id_distribuicao}')
+        print(f'ID do usuario: {self.id_usuario}')
+        print(f'ID do fornecedor: {self.id_fornecedor}')
+
+id_movimentacao = int(input("ID de movimentação:"))
+tipo_movimentacao = input("Tipo de movimentação:")
+data_movimentacao = int(input("Data da movimentação:"))
+quantidade = int(input("Qauantidade:"))
+id_medicamento = int(input("ID do meicamento:"))
+id_aquisicao = int(input("ID de aquisição:"))
+id_distribuicao = int(input("ID de distribuição:"))
+id_usuario = int(input("ID do usuario:"))
+id_fornecedor = int(input("ID do fornecedor:"))
+
+movimentacao = Movimentacao(id_movimentacao, tipo_movimentacao, data_movimentacao, quantidade, id_medicamento, id_aquisicao, id_distribuicao, id_usuario, id_fornecedor)
+movimentacao.exibir_dados()
+
+class Estoque:
+    def __init__(self, id_medicamento, nome_medicamento, nome_laboratorio, quantidade, data_validade, lote, id_aquisicao, id_usuario):
+        self.id_medicamento = id_medicamento
+        self.nome_medicamento = nome_medicamento
+        self.nome_laboratorio = nome_laboratorio
+        self.quantidade = quantidade
+        self.data_validade = data_validade
+        self.lote = lote
+        self.id_aquisicao = id_aquisicao
+        self.id_usuario = id_usuario
+
+    def exibir_dados(self):
+        print(f'ID do medicamento: {self.id_medicamento}')
+        print(f'Nome do medicament; {self.nome_medicamento}')
+        print(f'Nome do laboratorio: {self.nome_laboratorio}')
+        print(f'Quantidade: {self.quantidade}')
+        print(f'Data de validade: {self.data_validade}')
+        print(f'Lote: {self.lote}')
+        print(f'ID de aquisicação: {self.id_aquisicao}')
+        print(f'ID do usuario: {self.id_usuario}')
+
+id_medicamento = int(input("ID do medicamento:"))
+nome_medicamento = input("Nome do medicamento:")
+nome_laboratorio = input("Nome do laboratorio:")
+quantidade = int(input("Quantidade:"))
+data_validade = int(input("Data de validade:"))
+lote = int(input("Lote"))
+id_aquisicao = int(input("ID de aquisição:"))
+id_usuario = int(input("ID do usuario:"))
+
+estoque = Estoque(id_medicamento, nome_medicamento, nome_laboratorio, quantidade, data_validade, lote, id_aquisicao, id_usuario)
+estoque.exibir_dados()
+
+class Fornecedor:
+    def __init__(self, id_fornecedor, nome, endereco, cnpj, email, telefone):
+        self.id_fornecedor = id_fornecedor
+        self.nome = nome
+        self.endereco = endereco
+        self.cnpj = cnpj
+        self.email = email
+        self.telefone = telefone
+
+    def exibir_dados(self):
+        print(f'ID do fornecedor; {self.id_fornecedor}')
+        print(f'Nome: {self.nome}')
+        print(f'Endereço: {self.endereco}')
+        print(f'CNPJ: {self.cnpj}')
+        print(f'E-mail: {self.email}')
+        print(f'Telefone: {self.telefone}')
+
+id_fornecedor = int(input("ID do fornecedor:"))
+nome = input("Nome:")
+endereco = input("Endereço:")
+cnpj = int(input("CNPJ:"))
+email = input("E-mail:")
+telefone = int(input("Telefone:"))
+
+fornecedor = Fornecedor(id_fornecedor, nome, endereco, email, telefone)
+fornecedor.exibir_dados()
+
+class Destino:
+    def __init__(self, local_destino, codigo_destino, setor, endereco, cnpj, email, telefone):
+        self.local_destino = local_destino
+        self.codigo_destino = codigo_destino
+        self.setor = setor
+        self.endereco = endereco
+        self.cnpj = cnpj
+        self.email = email
+        self.telefone = telefone
+
+    def exibir_dados(self):
+        print(f'Local de destino: {self.local_destino}')
+        print(f'Código do destino: {self.codigo_destino}')
+        print(f'Setor: {self.setor}')
+        print(f'Endereço: {self.endereco}')
+        print(f'CNPJ: {self.cnpj}')
+        print(f'E-mail: {self.email}')
+        print(f'Telefone: {self.telefone}')
+
+local_destino = input("Local de destino:")
+codigo_destino = int(input("Código de destino:"))
+setor = input("Setor:")
+endereco = input("Endereço:")
+cnpj = int(input("CNPJ:"))
+email = input("E-mail:")
+telefone = int(input("Telefone:"))
+
+destino = Destino(local_destino, codigo_destino, setor, endereco, cnpj, email, telefone)
+destino.exibir_dados()
