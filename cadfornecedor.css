@@ -1,6 +1,3 @@
-/* =========================================
-   Reset Básico e Configuração de Fonte
-========================================= */
 * {
     margin: 0;
     padding: 0;
@@ -9,7 +6,7 @@
 }
 
 body {
-    background-color: #f0f2f5; /* Fundo cinza claro fora do formulário */
+    background-color: #f0f2f5;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,9 +20,6 @@ section {
     justify-content: center;
 }
 
-/* =========================================
-   Container Principal (O "Cartão")
-========================================= */
 .container-cadastro {
     background-color: #ffffff;
     width: 100%;
@@ -36,9 +30,6 @@ section {
     border: 1px solid #e0e0e0;
 }
 
-/* =========================================
-   Cabeçalho do Formulário
-========================================= */
 .cabecalho-form {
     margin-bottom: 30px;
     padding-bottom: 20px;
@@ -46,7 +37,7 @@ section {
 }
 
 .cabecalho-form h2 {
-    color: #cc0000; /* Vermelho do título da imagem */
+    color: #cc0000;
     font-size: 26px;
     font-weight: 700;
     margin-bottom: 8px;
@@ -57,9 +48,6 @@ section {
     font-size: 15px;
 }
 
-/* =========================================
-   Grupos de Input e Layout
-========================================= */
 .form-medicamento {
     display: flex;
     flex-direction: column;
@@ -72,16 +60,13 @@ section {
 
 .linha-dupla {
     display: flex;
-    gap: 20px; /* Espaço entre os campos na mesma linha */
+    gap: 20px;
 }
 
 .linha-dupla .grupo-input {
-    flex: 1; /* Faz os campos dividirem o espaço igualmente */
+    flex: 1;
 }
 
-/* =========================================
-   Estilização de Labels e Inputs
-========================================= */
 label {
     display: block;
     font-weight: 600;
@@ -113,7 +98,7 @@ input::placeholder {
 
 input:focus,
 select:focus {
-    border-color: #999999; /* Cor da borda ao clicar */
+    border-color: #999999;
 }
 
 input:disabled {
@@ -122,12 +107,9 @@ input:disabled {
     cursor: not-allowed;
 }
 
-/* =========================================
-   Área de Botões
-========================================= */
 .acoes-form {
     display: flex;
-    justify-content: flex-end; /* Alinha botões à direita */
+    justify-content: flex-end;
     gap: 15px;
     margin-top: 10px;
     padding-top: 25px;
@@ -163,9 +145,6 @@ button {
     background-color: #a30000;
 }
 
-/* =========================================
-   Responsividade (Para celulares)
-========================================= */
 @media (max-width: 600px) {
     .linha-dupla {
         flex-direction: column;
