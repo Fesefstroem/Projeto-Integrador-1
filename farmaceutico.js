@@ -1,20 +1,13 @@
-// farmaceutico.js
-// Script responsável pelas ações dos botões do painel do farmacêutico
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Seleciona os botões pela classe
+
     const btnCadMed = document.querySelector('.btn-cadmed');
     const btnCadFor = document.querySelector('.btn-cadfor');
-    const btnRegSaida = document.querySelector('.btn-regsaida');
-    const btnRegEntrada = document.querySelector('.btn-regentrada');
+    const btnReg = document.querySelector('.btn-reg');
 
-    // Mapeia cada botão para sua página/rota correspondente
-    // Ajuste os caminhos conforme a estrutura real do seu projeto
     const rotas = {
         cadastroMedicamento: 'cadmed.html',
         cadastroFornecedor: 'cadfornecedor.html',
-        registrarSaida: 'registrar-saida.html',
-        registrarEntrada: 'registrar-entrada.html',
+        registrar: 'registro.html',
     };
 
     // Função de navegação
@@ -31,11 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         irPara(rotas.cadastroFornecedor);
     });
 
-    btnRegSaida?.addEventListener('click', () => {
-        irPara(rotas.registrarSaida);
-    });
-
-    btnRegEntrada?.addEventListener('click', () => {
-        irPara(rotas.registrarEntrada);
+    btnReg?.addEventListener('click', () => {
+        irPara(rotas.registrar);
     });
 });

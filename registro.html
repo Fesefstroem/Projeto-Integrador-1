@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Registro de Movimentação</title>
+<link rel="stylesheet" href="registro.css">
+</head>
+<body>
+
+<div class="card">
+  <h1>Registro de Movimentação</h1>
+  <p class="subtitle">Preencha os dados da movimentação de estoque.</p>
+  <hr>
+
+  <form id="formMovimentacao">
+    <div class="field full">
+      <label for="id_movimentacao">ID Movimentação</label>
+      <input type="text" id="id_movimentacao" name="id_movimentacao" placeholder="Gerado automaticamente" disabled>
+    </div>
+
+    <div class="field">
+      <label for="tipo_movimentacao">Tipo de Movimentação <span class="req">*</span></label>
+      <select id="tipo_movimentacao" name="tipo_movimentacao" required>
+        <option value="" selected disabled>Selecione...</option>
+        <option value="E">(E) Entrada</option>
+        <option value="S">(S) Saída</option>
+        <option value="D">(D) Devolução</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="dt_movimentacao">Data da Movimentação <span class="req">*</span></label>
+      <input type="datetime-local" id="dt_movimentacao" name="dt_movimentacao" required>
+    </div>
+
+    <div class="field">
+      <label for="quantidade">Quantidade <span class="req">*</span></label>
+      <input type="number" id="quantidade" name="quantidade" min="1" step="1" placeholder="Ex: 100" required>
+    </div>
+
+    <div class="field">
+      <label for="medicamento">Medicamento <span class="req">*</span></label>
+      <input type="text" id="id_medicamento" name="medicamento" placeholder="Nome do medicamento" required>
+    </div>
+
+    <div class="field">
+      <label for="id_aquisicao">ID Aquisição</label>
+      <input type="text" id="id_aquisicao" name="id_aquisicao" placeholder="Código da aquisição (se entrada)">
+    </div>
+
+    <div class="field">
+      <label for="id_distribuicao">ID Distribuição</label>
+      <input type="text" id="id_distribuicao" name="id_distribuicao" placeholder="Código da distribuição (se saída)">
+    </div>
+
+    <div class="field full">
+      <label for="vlr_movimentacao">Valor da Movimentação <span class="req">*</span></label>
+      <input type="number" id="vlr_movimentacao" name="vlr_movimentacao" step="0.01" min="0" placeholder="Ex: 150.00" required>
+    </div>
+
+    <div class="actions">
+      <button type="reset" class="btn-clear">Limpar</button>
+      <button type="submit" class="btn-save">Salvar Movimentação</button>
+    </div>
+  </form>
+</div>
+
+<script src="registro.js"></script>
+
+</body>
+</html>
