@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório de estoque</title>
+<link rel="stylesheet" href="relatorio.css">
+<link rel="icon" href="med.png">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L20 6V12C20 17 16.5 20.5 12 22C7.5 20.5 4 17 4 12V6L12 2Z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M12 8V16M8 12H16" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Relatório de Estoque</h1>
+        <div class="sub">Controle por lote, validade e valor — com aviso automático</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span id="today-label"></span>
+      <button class="btn btn-ghost" onclick="exportCSV()">Exportar CSV</button>
+      <button class="btn btn-primary" onclick="window.print()">Imprimir relatório</button>
+    </div>
+  </header>
+
+  <section class="summary">
+    <div class="card money">
+      <div class="k">Valor total em estoque</div>
+      <div class="v" id="sum-valor">R$ 0,00</div>
+    </div>
+    <div class="card">
+      <div class="k">Itens cadastrados</div>
+      <div class="v" id="sum-itens">0</div>
+    </div>
+    <div class="card alert-amber">
+      <div class="k">Próximos ao vencimento</div>
+      <div class="v" id="sum-venc">0</div>
+    </div>
+    <div class="card alert-red">
+      <div class="k">Baixo estoque</div>
+      <div class="v" id="sum-baixo">0</div>
+    </div>
+  </section>
+
+  <div class="layout">
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Medicamentos</h2>
+        <div class="toolbar">
+          <input type="text" id="search" class="search" placeholder="Buscar por nome ou lote…" oninput="render()">
+          <select id="filter" onchange="render()" style="border:1px solid var(--line); border-radius:8px; padding:8px 10px; font-size:13.5px; background:var(--bg); color:var(--ink);">
+            <option value="todos">Todos</option>
+            <option value="baixo">Baixo estoque</option>
+            <option value="vencimento">Próx. vencimento</option>
+            <option value="vencido">Vencido</option>
+          </select>
+        </div>
+      </div>
+      <div class="panel-body" style="padding:0;">
+        <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Medicamento</th>
+              <th>Lote</th>
+              <th>Validade</th>
+              <th class="num">Qtd.</th>
+              <th class="num">Valor unit.</th>
+              <th class="num">Valor total</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        </div>
+        <div class="empty" id="empty-state" style="display:none;">Nenhum medicamento encontrado para essa busca.</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Avisos automáticos</h2>
+      </div>
+      <div class="panel-body">
+        <div id="history-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote">Relatório somente para visualização e impressão</div>
+</div>
+
+<script>
+  const fmtMoney = n => n.toLocaleString('pt-BR', { style:'currency', currency:'BRL' });
+  const fmtDate = iso => { const [y,m,d] = iso.split('-'); return `${d}/${m}/${y}`; };
+
+  const stock = [
+    { nome: 'Dipirona Sódica 500mg', lote: 'L2026-014', validade: '2026-08-20', qtd: 12, min: 30, preco: 4.20 },
+    { nome: 'Amoxicilina 875mg', lote: 'L2026-002', validade: '2027-03-15', qtd: 140, min: 20, preco: 18.90 },
+    { nome: 'Omeprazol 20mg', lote: 'L2025-071', validade: '2026-08-18', qtd: 60, min: 15, preco: 9.50 },
+    { nome: 'Losartana Potássica 50mg', lote: 'L2026-009', validade: '2027-11-02', qtd: 200, min: 25, preco: 6.75 },
+    { nome: 'Insulina NPH 100UI/ml', lote: 'L2026-031', validade: '2026-08-05', qtd: 8, min: 10, preco: 42.00 },
+  ];
+
+  const avisos = [];
+
+  function logAviso(text, level){
+    avisos.push({ text, level: level || 'ok' });
+  }
+
+  function daysUntil(iso){
+    const today = new Date(); today.setHours(0,0,0,0);
+    const target = new Date(iso + 'T00:00:00');
+    return Math.round((target - today) / 86400000);
+  }
+
+  function statusOf(item){
+    const d = daysUntil(item.validade);
+    if (d < 0) return { key:'vencido', label:'Vencido', cls:'red' };
+    if (d <= 30) return { key:'vencimento', label:`Vence em ${d}d`, cls:'amber' };
+    if (item.qtd <= item.min) return { key:'baixo', label:'Baixo estoque', cls:'red' };
+    return { key:'ok', label:'Regular', cls:'ok' };
+  }
+
+  function render(){
+    const q = document.getElementById('search').value.trim().toLowerCase();
+    const filter = document.getElementById('filter').value;
+    const tbody = document.getElementById('tbody');
+    tbody.innerHTML = '';
+
+    let list = stock.filter(it => {
+      const matchesQ = !q || it.nome.toLowerCase().includes(q) || it.lote.toLowerCase().includes(q);
+      if (!matchesQ) return false;
+      if (filter === 'todos') return true;
+      const s = statusOf(it);
+      if (filter === 'baixo') return it.qtd <= it.min;
+      return s.key === filter;
+    });
+
+    document.getElementById('empty-state').style.display = list.length ? 'none' : 'block';
+
+    list.forEach(it => {
+      const total = it.qtd * it.preco;
+      const s = statusOf(it);
+      const lowStock = it.qtd <= it.min;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="med-name">${escapeHtml(it.nome)}</td>
+        <td class="lote">${escapeHtml(it.lote)}</td>
+        <td>${fmtDate(it.validade)}</td>
+        <td class="num">${it.qtd}</td>
+        <td class="num">${fmtMoney(it.preco)}</td>
+        <td class="num">${fmtMoney(total)}</td>
+        <td>
+          <span class="tag ${s.cls}">${s.label}</span>
+          ${ (lowStock && s.key!=='baixo') ? '<span class="tag red" style="margin-left:4px;">Baixo estoque</span>' : '' }
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    renderSummary();
+  }
+
+  function renderSummary(){
+    const valorTotal = stock.reduce((a,it) => a + it.qtd*it.preco, 0);
+    const vencendo = stock.filter(it => { const d = daysUntil(it.validade); return d >= 0 && d <= 30; }).length;
+    const baixo = stock.filter(it => it.qtd <= it.min).length;
+    document.getElementById('sum-valor').textContent = fmtMoney(valorTotal);
+    document.getElementById('sum-itens').textContent = stock.length;
+    document.getElementById('sum-venc').textContent = vencendo;
+    document.getElementById('sum-baixo').textContent = baixo;
+  }
+
+  function renderAvisos(){
+    const el = document.getElementById('history-list');
+    if (!avisos.length){
+      el.innerHTML = '<div class="empty" style="padding:20px 0;">Nenhum aviso no momento.</div>';
+      return;
+    }
+    el.innerHTML = avisos.map(h => `
+      <div class="hist-item">
+        <div class="hist-dot ${h.level === 'ok' ? '' : h.level}"></div>
+        <div>
+          <div class="hist-text">${h.text}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function escapeHtml(s){
+    return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  function checkAlerts(){
+    stock.forEach(it => {
+      const d = daysUntil(it.validade);
+      if (d < 0){
+        logAviso(`<b>${escapeHtml(it.nome)}</b> (lote ${escapeHtml(it.lote)}) está vencido`, 'red');
+      } else if (d <= 30){
+        logAviso(`<b>${escapeHtml(it.nome)}</b> vence em ${d} dias`, 'amber');
+      }
+      if (it.qtd <= it.min){
+        logAviso(`<b>${escapeHtml(it.nome)}</b> está com estoque baixo (${it.qtd} un.)`, 'red');
+      }
+    });
+    renderAvisos();
+  }
+
+  function exportCSV(){
+    const header = ['Medicamento','Lote','Validade','Quantidade','Valor unitario','Valor total','Status'];
+    const rows = stock.map(it => {
+      const s = statusOf(it);
+      return [it.nome, it.lote, fmtDate(it.validade), it.qtd, it.preco.toFixed(2), (it.qtd*it.preco).toFixed(2), s.label];
+    });
+    const csv = [header, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(';')).join('\n');
+    const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `relatorio-estoque-${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  document.getElementById('today-label').textContent = new Date().toLocaleDateString('pt-BR', { weekday:'short', day:'2-digit', month:'short', year:'numeric' });
+
+  render();
+  checkAlerts();
+</script>
+</body>
+</html>
